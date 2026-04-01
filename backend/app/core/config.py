@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 1 week
 
     # Database — set DATABASE_URL env var in Railway dashboard
-    DATABASE_URL: str = "postgresql://neondb_owner:npg_xgEym3LWF1Oi@ep-cold-recipe-anvrbo0h-pooler.c-6.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+    DATABASE_URL: str = "postgresql://neondb_owner:npg_xgEym3LWF1Oi@ep-cold-recipe-anvrbo0h-pooler.c-6.us-east-1.aws.neon.tech/neondb?sslmode=require"
 
     # CORS — comma-separated string so Railway env vars work easily
     # e.g. ALLOWED_ORIGINS_STR="https://archire.vercel.app,http://localhost:5173"

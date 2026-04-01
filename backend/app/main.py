@@ -15,8 +15,12 @@ logger = get_logger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info(f"Starting {settings.APP_NAME}...")
-    init_db()
-    logger.info("Database initialised")
+    try:
+        init_db()
+        logger.info("Database initialised")
+    except Exception as exc:
+        # Log but don't crash — health check must pass even if DB is slow to connect
+        logger.error(f"Database init failed (will retry on first request): {exc}")
     yield
     logger.info(f"{settings.APP_NAME} shut down")
 
