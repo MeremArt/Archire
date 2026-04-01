@@ -1,0 +1,21 @@
+{
+  "_note": "Indeed blocks automated requests aggressively. Works best with delays and rotating sessions. Selectors verified March 2026 — may need updating if Indeed changes their HTML.",
+  "name": "Indeed",
+  "type": "search_html",
+  "enabled": true,
+  "url_template": "https://www.indeed.com/jobs?q={keyword}&l={location}&sort=date&fromage=14",
+  "job_list_selector": ".job_seen_beacon",
+  "title_selector": "h2.jobTitle a",
+  "company_selector": "[data-testid='company-name']",
+  "location_selector": "[data-testid='text-location']",
+  "date_selector": ".date",
+  "link_selector": "h2.jobTitle a",
+  "link_prefix": "https://www.indeed.com",
+  "description_selector": "",
+  "tags_selector": "",
+  "request_delay": 2.0,
+  "pagination": {
+    "max_pages": 3,
+    "next_selector": "a[data-testid='pagination-page-next']"
+  }
+}

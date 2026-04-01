@@ -1,0 +1,20 @@
+{
+  "name": "RemoteOK",
+  "type": "json_api",
+  "enabled": true,
+  "base_url": "https://remoteok.com/api",
+  "skip_first": 1,
+  "data_path": "",
+  "field_map": {
+    "title": "position",
+    "url": "url",
+    "company": "company",
+    "location": "location",
+    "description": "description",
+    "date_posted": "date",
+    "tags": "tags"
+  },
+  "headers": {
+    "User-Agent": "Mozilla/5.0 ArcHire/1.0 (https://github.com/example/archire)"
+  }
+}

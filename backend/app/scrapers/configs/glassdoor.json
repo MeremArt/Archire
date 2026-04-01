@@ -1,0 +1,22 @@
+{
+  "_note": "Glassdoor is heavily JavaScript-rendered. This config uses their public job search URL. Set requires_js=true and install Selenium + chromedriver for reliable results. Without JS rendering, results may be empty or partial.",
+  "name": "Glassdoor",
+  "type": "search_html",
+  "enabled": true,
+  "requires_js": true,
+  "url_template": "https://www.glassdoor.com/Job/jobs.htm?suggestKeyword={keyword}&suggestLocation={location}&sortBy=date_desc",
+  "job_list_selector": "[data-test='jobListing']",
+  "title_selector": "[data-test='job-title']",
+  "company_selector": ".EmployerProfile_employerNameHeading__Xemli",
+  "location_selector": "[data-test='emp-location']",
+  "date_selector": "[data-test='job-age']",
+  "link_selector": "[data-test='job-title']",
+  "link_prefix": "https://www.glassdoor.com",
+  "description_selector": "",
+  "tags_selector": "",
+  "request_delay": 3.0,
+  "pagination": {
+    "max_pages": 2,
+    "next_selector": "button[alt='next-page']"
+  }
+}

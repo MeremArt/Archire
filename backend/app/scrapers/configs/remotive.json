@@ -1,0 +1,17 @@
+{
+  "name": "Remotive",
+  "type": "json_api",
+  "enabled": true,
+  "base_url": "https://remotive.com/api/remote-jobs",
+  "data_path": "jobs",
+  "skip_first": 0,
+  "field_map": {
+    "title": "title",
+    "url": "url",
+    "company": "company_name",
+    "location": "candidate_required_location",
+    "description": "description",
+    "date_posted": "publication_date",
+    "tags": "tags"
+  }
+}

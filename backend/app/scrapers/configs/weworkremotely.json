@@ -1,0 +1,6 @@
+{
+  "name": "We Work Remotely",
+  "type": "rss",
+  "enabled": true,
+  "base_url": "https://weworkremotely.com/remote-jobs.rss"
+}

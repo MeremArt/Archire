@@ -1,0 +1,11 @@
+{
+  "_note": "Lever ATS — public API, no auth needed. Add/remove slugs from https://jobs.lever.co/{slug}",
+  "name": "Lever",
+  "type": "lever",
+  "enabled": true,
+  "companies": [
+    "palantir",
+    "plaid",
+    "neon"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "_comment": "Example HTML scraper config. Selectors are illustrative — update them for your target site.",
+  "name": "Example HTML Board",
+  "type": "html",
+  "enabled": false,
+  "base_url": "https://example-job-board.com/jobs",
+  "job_list_selector": ".job-listing",
+  "title_selector": ".job-title a",
+  "company_selector": ".company-name",
+  "location_selector": ".job-location",
+  "date_selector": ".date-posted",
+  "link_selector": ".job-title a",
+  "link_prefix": "https://example-job-board.com",
+  "description_selector": ".job-summary",
+  "tags_selector": ".tag",
+  "pagination": {
+    "max_pages": 3,
+    "next_selector": "a.pagination-next"
+  }
+}
