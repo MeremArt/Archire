@@ -139,8 +139,9 @@ function TriggerScrapeCard() {
   const handleScrape = async () => {
     setState("loading");
     try {
-      const res = await fetch("/api/admin/scrape", { method: "POST" });
-      const data = await res.json();
+      // Use axios instance so VITE_API_URL is respected in production
+      const { default: api } = await import("../services/api");
+      const { data } = await api.post("/admin/scrape", {}, { timeout: 10 * 60 * 1000 });
       setResult(data);
       setState("done");
     } catch {

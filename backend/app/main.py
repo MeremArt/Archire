@@ -73,24 +73,27 @@ def list_sources():
     ]
 
 
-@app.post("/api/admin/scrape", tags=["admin"])
-def trigger_scrape():
-    """
-    Manually trigger a scrape run (no auth required for local dev —
-    add get_admin_user dependency in production).
-    """
+def _run_scrape_task():
+    """Run in a background thread — scraping 33+ sources takes several minutes."""
     from app.scrapers.engine import run_all_scrapers
     from app.services.job_service import bulk_upsert_jobs
     from app.core.database import SessionLocal
-
     db = SessionLocal()
     try:
         jobs_scraped = run_all_scrapers()
         inserted, skipped = bulk_upsert_jobs(db, jobs_scraped)
-        return {
-            "scraped": len(jobs_scraped),
-            "inserted": inserted,
-            "skipped": skipped,
-        }
+        logger.info(f"Background scrape done: scraped={len(jobs_scraped)} inserted={inserted} skipped={skipped}")
+    except Exception as exc:
+        logger.error(f"Background scrape failed: {exc}", exc_info=True)
     finally:
         db.close()
+
+
+@app.post("/api/admin/scrape", tags=["admin"])
+def trigger_scrape(background_tasks: __import__("fastapi").BackgroundTasks):
+    """
+    Kick off a scrape in the background and return immediately.
+    Scraping 33+ sources takes several minutes — runs async so the request doesn't time out.
+    """
+    background_tasks.add_task(_run_scrape_task)
+    return {"status": "started", "message": "Scrape running in background. Jobs will appear within a few minutes."}
