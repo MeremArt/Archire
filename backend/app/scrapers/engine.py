@@ -469,13 +469,10 @@ class GreenhouseScraper(BaseScraper):
             ]
             tags = [t for t in tags if t]  # remove empties after cleaning
 
+            # Greenhouse only exposes updated_at (last edited), not original posting date.
+            # updated_at is misleading ("posted 2 hours ago" for weeks-old jobs) so we
+            # leave date_posted as None — the frontend falls back to our created_at.
             date_posted: Optional[datetime] = None
-            updated = item.get("updated_at", "")
-            if updated:
-                try:
-                    date_posted = dateparser.parse(updated)
-                except Exception:
-                    pass
 
             # Format company name from slug (e.g. "stripe" → "Stripe")
             company_name = slug.replace("-", " ").replace("_", " ").title()

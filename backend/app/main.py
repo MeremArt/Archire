@@ -91,6 +91,17 @@ def _run_scrape_task():
         db.close()
 
 
+@app.post("/api/admin/init-db", tags=["admin"])
+def force_init_db():
+    """Force-create any missing tables (safe to call multiple times — idempotent)."""
+    try:
+        init_db()
+        return {"status": "ok", "message": "Tables created / verified."}
+    except Exception as exc:
+        logger.error(f"Force init_db failed: {exc}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(exc))
+
+
 @app.post("/api/admin/scrape", tags=["admin"])
 def trigger_scrape(background_tasks: __import__("fastapi").BackgroundTasks):
     """

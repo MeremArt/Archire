@@ -54,6 +54,39 @@ export default function TailorCVModal({ job, onClose }) {
     URL.revokeObjectURL(url);
   };
 
+  const handlePrintPDF = () => {
+    const md = result.tailored_cv;
+    // Minimal markdown → HTML converter (handles headings, bold, italic, bullets, HR)
+    const html = md
+      .replace(/^### (.+)$/gm, "<h3>$1</h3>")
+      .replace(/^## (.+)$/gm, "<h2>$1</h2>")
+      .replace(/^# (.+)$/gm, "<h1>$1</h1>")
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*(.+?)\*/g, "<em>$1</em>")
+      .replace(/^[-*] (.+)$/gm, "<li>$1</li>")
+      .replace(/(<li>.*<\/li>\n?)+/g, (m) => `<ul>${m}</ul>`)
+      .replace(/^---$/gm, "<hr>")
+      .replace(/\n{2,}/g, "</p><p>")
+      .replace(/\n/g, "<br>");
+
+    const win = window.open("", "_blank");
+    win.document.write(`<!DOCTYPE html><html><head><title>CV – ${job.company || "ArcHire"}</title>
+<style>
+  body { font-family: Georgia, serif; max-width: 780px; margin: 40px auto; padding: 0 32px; color: #111; font-size: 13px; line-height: 1.6; }
+  h1 { font-size: 22px; margin-bottom: 2px; }
+  h2 { font-size: 15px; border-bottom: 1px solid #ccc; padding-bottom: 2px; margin-top: 18px; text-transform: uppercase; letter-spacing: .05em; }
+  h3 { font-size: 13px; margin-bottom: 2px; }
+  ul { padding-left: 18px; margin: 4px 0; }
+  li { margin-bottom: 2px; }
+  hr { border: none; border-top: 1px solid #ddd; margin: 12px 0; }
+  p { margin: 6px 0; }
+  @media print { body { margin: 0; } }
+</style></head><body><p>${html}</p>
+<script>window.onload = function(){ window.print(); }</script>
+</body></html>`);
+    win.document.close();
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col">
@@ -148,8 +181,11 @@ export default function TailorCVModal({ job, onClose }) {
                     <button onClick={handleCopy} className="text-xs btn-secondary py-1 px-3">
                       {copied ? "✓ Copied" : "Copy"}
                     </button>
+                    <button onClick={handlePrintPDF} className="text-xs btn-secondary py-1 px-3">
+                      Export PDF
+                    </button>
                     <button onClick={handleDownload} className="text-xs btn-secondary py-1 px-3">
-                      Download .md
+                      .md
                     </button>
                   </div>
                 </div>

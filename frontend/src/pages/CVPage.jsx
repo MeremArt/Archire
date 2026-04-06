@@ -22,9 +22,10 @@ export default function CVPage() {
     try {
       await cvAPI.upload(content.trim(), "master-cv.md");
       setSaved(true);
-      setTimeout(() => setSaved(false), 3000);
-    } catch {
-      setError("Failed to save CV. Please try again.");
+      setTimeout(() => setSaved(false), 5000);
+    } catch (err) {
+      const detail = err.response?.data?.detail || err.message || "Unknown error";
+      setError(`Failed to save: ${detail}`);
     } finally {
       setSaving(false);
     }
@@ -76,8 +77,16 @@ export default function CVPage() {
         >
           {saving ? "Saving…" : "Save CV"}
         </button>
-        {saved && <span className="text-green-600 text-sm font-medium">✓ CV saved</span>}
-        {error && <span className="text-red-600 text-sm">{error}</span>}
+        {saved && (
+          <span className="text-green-600 text-sm font-semibold bg-green-50 border border-green-200 px-3 py-1 rounded-lg">
+            ✓ CV saved successfully
+          </span>
+        )}
+        {error && (
+          <span className="text-red-600 text-sm bg-red-50 border border-red-200 px-3 py-1 rounded-lg">
+            {error}
+          </span>
+        )}
         {content && (
           <span className="text-gray-400 text-sm ml-auto">
             {content.split(/\s+/).filter(Boolean).length} words
