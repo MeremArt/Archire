@@ -33,6 +33,13 @@ export default function Navbar() {
           <div className="hidden sm:flex items-center gap-3">
             {user ? (
               <>
+                <Link to="/applications" className="text-sm text-gray-600 hover:text-indigo-600 font-medium">
+                  Applications
+                </Link>
+                <Link to="/cv" className="text-sm text-gray-600 hover:text-indigo-600 font-medium">
+                  My CV
+                </Link>
+                <span className="text-sm text-gray-400">|</span>
                 <span className="text-sm text-gray-500">{user.email}</span>
                 <button onClick={handleLogout} className="btn-secondary text-sm py-1.5 px-3">
                   Sign out
@@ -72,6 +79,20 @@ export default function Navbar() {
             {user ? (
               <>
                 <p className="px-2 text-sm text-gray-500">{user.email}</p>
+                <Link
+                  to="/applications"
+                  onClick={() => setMenuOpen(false)}
+                  className="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded"
+                >
+                  Applications
+                </Link>
+                <Link
+                  to="/cv"
+                  onClick={() => setMenuOpen(false)}
+                  className="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded"
+                >
+                  My CV
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="block w-full text-left px-2 py-2 text-sm text-red-600 hover:bg-gray-50 rounded"

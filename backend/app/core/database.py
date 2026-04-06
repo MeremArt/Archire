@@ -28,5 +28,5 @@ def get_db():
 
 def init_db():
     # Import all models to register them with Base
-    from app.models import job, subscription, user, scrape_spec  # noqa: F401
+    from app.models import job, subscription, user, scrape_spec, cv, application  # noqa: F401
     Base.metadata.create_all(bind=engine)

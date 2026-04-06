@@ -83,4 +83,19 @@ export const scrapeAPI = {
   deleteSpec: (id) => api.delete(`/scrape/specs/${id}`),
 };
 
+// ── CV & AI Tailoring ─────────────────────────────────────────────────────────
+export const cvAPI = {
+  get: () => api.get("/cv"),
+  upload: (content, filename) => api.post("/cv", { content, filename }),
+  tailor: (job_id) => api.post("/cv/tailor", { job_id }, { timeout: 60000 }),
+};
+
+// ── Applications ──────────────────────────────────────────────────────────────
+export const applicationsAPI = {
+  list: () => api.get("/applications"),
+  get: (id) => api.get(`/applications/${id}`),
+  update: (id, data) => api.patch(`/applications/${id}`, data),
+  delete: (id) => api.delete(`/applications/${id}`),
+};
+
 export default api;

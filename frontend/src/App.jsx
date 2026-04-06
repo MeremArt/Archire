@@ -6,6 +6,8 @@ import Navbar from "./components/Navbar";
 import Landing from "./pages/Landing";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import CVPage from "./pages/CVPage";
+import ApplicationsPage from "./pages/ApplicationsPage";
 
 function AppLayout({ children }) {
   return (
@@ -40,6 +42,30 @@ export default function App() {
               <ProtectedRoute>
                 <AppLayout>
                   <Home />
+                </AppLayout>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Protected — CV management */}
+          <Route
+            path="/cv"
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <CVPage />
+                </AppLayout>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Protected — Applications tracker */}
+          <Route
+            path="/applications"
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <ApplicationsPage />
                 </AppLayout>
               </ProtectedRoute>
             }

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { formatDistanceToNow, parseISO } from "date-fns";
+import TailorCVModal from "./TailorCVModal";
 
 function stripHtml(html) {
   if (!html) return "";
@@ -39,6 +40,7 @@ function SourceBadge({ source }) {
 }
 
 export default function JobCard({ job }) {
+  const [showTailor, setShowTailor] = useState(false);
   const posted = timeAgo(job.date_posted || job.created_at);
   const tags = (job.tags || []).filter(Boolean).slice(0, 5);
 
@@ -99,24 +101,34 @@ export default function JobCard({ job }) {
         </p>
       )}
 
-      {/* Footer: tags + apply button */}
+      {/* Footer: tags + buttons */}
       <div className="flex items-center justify-between gap-2 mt-auto pt-1">
         <div className="flex flex-wrap gap-1.5">
           {tags.map((tag) => (
-            <span key={tag} className="tag">
-              {tag}
-            </span>
+            <span key={tag} className="tag">{tag}</span>
           ))}
         </div>
-        <a
-          href={job.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-primary text-sm py-1.5 px-4 shrink-0 whitespace-nowrap"
-        >
-          Apply →
-        </a>
+        <div className="flex gap-2 shrink-0">
+          <button
+            onClick={() => setShowTailor(true)}
+            className="text-sm py-1.5 px-3 rounded-lg border border-indigo-300 text-indigo-700
+                       hover:bg-indigo-50 transition-colors whitespace-nowrap font-medium"
+            title="Tailor your CV for this job with AI"
+          >
+            ✨ Tailor CV
+          </button>
+          <a
+            href={job.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary text-sm py-1.5 px-4 whitespace-nowrap"
+          >
+            Apply →
+          </a>
+        </div>
       </div>
+
+      {showTailor && <TailorCVModal job={job} onClose={() => setShowTailor(false)} />}
     </article>
   );
 }

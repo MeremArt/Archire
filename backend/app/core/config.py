@@ -43,6 +43,9 @@ class Settings(BaseSettings):
     # Scheduler
     SCRAPE_INTERVAL_HOURS: int = 24
 
+    # Anthropic — set ANTHROPIC_API_KEY in Railway dashboard
+    ANTHROPIC_API_KEY: str = ""
+
     # Scraper
     REQUEST_TIMEOUT: int = 30
     MAX_RETRIES: int = 3

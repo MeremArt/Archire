@@ -7,7 +7,7 @@ from fastapi.middleware.gzip import GZipMiddleware
 from app.core.config import settings
 from app.core.database import init_db
 from app.core.logger import get_logger
-from app.api.routes import jobs, subscriptions, auth, scrape
+from app.api.routes import jobs, subscriptions, auth, scrape, cv, applications
 
 logger = get_logger(__name__)
 
@@ -49,6 +49,8 @@ app.include_router(jobs.router, prefix="/api")
 app.include_router(subscriptions.router, prefix="/api")
 app.include_router(auth.router, prefix="/api")
 app.include_router(scrape.router, prefix="/api")
+app.include_router(cv.router, prefix="/api")
+app.include_router(applications.router, prefix="/api")
 
 
 # ── Utility endpoints ─────────────────────────────────────────────────────────
