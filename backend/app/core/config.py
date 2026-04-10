@@ -6,12 +6,12 @@ class Settings(BaseSettings):
     # App
     APP_NAME: str = "ArcHire"
     DEBUG: bool = False
-    SECRET_KEY: str = "change-this-secret-key-in-production-min-32-chars!!"
+    SECRET_KEY: str  # required — set in Railway / .env, never default
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 1 week
 
-    # Database — set DATABASE_URL env var in Railway dashboard
-    DATABASE_URL: str = "postgresql://neondb_owner:npg_xgEym3LWF1Oi@ep-cold-recipe-anvrbo0h-pooler.c-6.us-east-1.aws.neon.tech/neondb?sslmode=require"
+    # Database — required, set in Railway / .env
+    DATABASE_URL: str
 
     # CORS — comma-separated string so Railway env vars work easily
     # e.g. ALLOWED_ORIGINS_STR="https://archire.vercel.app,http://localhost:5173"
